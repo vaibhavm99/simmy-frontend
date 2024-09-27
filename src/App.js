@@ -16,16 +16,27 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'; // Import PersistGate
 import store, { persistor } from './components/store'; // Import your store and persistor
 import Logout from './components/Logout';
-
+import {FormContext} from './components/FormContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SimulatorProfilesNew from './components/SimulatorProfilesNew';
+import { useContext, useState } from 'react';
+import SimulatorProfiles from './components/SimulatorProfiles';
 
 const App = () => {
+  const [formData, setFormData] = useState({
+    storeName: '',
+    webUrl: '',
+    industry: '',
+    description: '',
+    items: ''
+});
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
     <Router>
       <div>
         <main>
+        <FormContext.Provider value={{formData,setFormData}}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -37,7 +48,10 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path='/users' element={< Options />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/simulator-profiles-new" element={<SimulatorProfilesNew/>} />
+            <Route path="/simulator-profiles" element={<SimulatorProfiles/>} />
           </Routes>
+          </FormContext.Provider>
         </main>
         <div style={{padding: "2%"}}/>
         <Footer />
