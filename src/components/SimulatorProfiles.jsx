@@ -15,9 +15,10 @@ const SimulatorProfiles = () => {
 
     const {formData, setFormData} = useContext(FormContext);
 
-    const redirectToSimulatorProfiles = () => {
-        
-        window.location.href = '/simulator-profiles-new';
+    console.log(formData);
+
+    const redirectTo = (path) => {
+      navigate(path);
     }
     
     return (
@@ -27,7 +28,7 @@ const SimulatorProfiles = () => {
             {/* Button at the top to navigate to new simulator profile */}
             <div className="top-button-container">
                 <h2>Welcome to Simmy Simulator !</h2>
-                <button className="navigate-button" onClick={() => redirectToSimulatorProfiles()}>
+                <button className="navigate-button" onClick={() => redirectTo('/simulator-profiles-new')}>
                     Update Simulator Profile
                 </button>
             </div>
@@ -37,7 +38,7 @@ const SimulatorProfiles = () => {
                 <h3>Audiences</h3>
                 <p>This section contains details about the Audiences.</p>
                 
-                <button className="action-button" onClick={() => alert('Action performed')}>
+                <button className="action-button" onClick={() => redirectTo('/simulation')}>
                     Simulate
                 </button>
             </div>

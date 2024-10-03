@@ -21,6 +21,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SimulatorProfilesNew from './components/SimulatorProfilesNew';
 import { useContext, useState } from 'react';
 import SimulatorProfiles from './components/SimulatorProfiles';
+import Simulation from './components/Simulation';
 
 const App = () => {
   const [formData, setFormData] = useState({
@@ -50,6 +51,7 @@ const App = () => {
             <Route path="/logout" element={<Logout />} />
             <Route path="/simulator-profiles-new" element={<SimulatorProfilesNew/>} />
             <Route path="/simulator-profiles" element={<SimulatorProfiles/>} />
+            <Route path="/simulation" element={<Simulation/>} />
           </Routes>
           </FormContext.Provider>
         </main>
