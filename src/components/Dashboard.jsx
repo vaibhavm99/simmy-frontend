@@ -13,6 +13,8 @@ const Dashboard = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const user = useSelector((state) => state.user); // Access the global user data
   const navigate = useNavigate();
+  const [viewInitialData, setViewInitialData] = useState(false);
+  const [viewOptimizedData, setViewOptimizedData] = useState(false);
 
   // Toggle dropdown visibility
   const toggleDropdown = () => {
@@ -34,7 +36,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard-page">
       {/* Navbar */}
-      <nav className="navbar">
+      {/* <nav className="navbar">
         <div className="navbar-left">
           <div className="logo">
           <Navbar.Brand href="/">
@@ -61,15 +63,16 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      </nav>
+      </nav> */}
+      <NavbarComponent />
 
       {/* Main Content */}
       <div className="dashboard-container">
         <div className="header-section">
           <h1>Campaigns</h1>
           <div className="buttons">
-            <button className="btn btn-primary">View Initial Data</button>
-            <button className="btn btn-success">View Optimized Data</button>
+            <button className="btn btn-primary" onClick={()=>{setViewInitialData(!viewInitialData)}}>View Initial Data</button>
+            <button className="btn btn-success" onClick={()=>{setViewOptimizedData(!viewOptimizedData)}}>View Optimized Data</button>
             <button className="btn btn-secondary">Understand these results</button>
           </div>
         </div>
@@ -102,8 +105,8 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Campaign 2</td>
+{ viewInitialData &&<tr>
+                <td>Campaign 1</td>
                 <td>$120.00</td>
                 <td>70,116</td>
                 <td>22,052</td>
@@ -114,9 +117,9 @@ const Dashboard = () => {
                 <td>158.33%</td>
                 <td>$118.75</td>
                 <td>$8.56</td>
-              </tr>
-              <tr>
-                <td>(Optimized) Campaign 2</td>
+              </tr>}
+{ viewOptimizedData &&<tr>
+                <td>(Optimized) Campaign 1</td>
                 <td>$120.00</td>
                 <td>75,922</td>
                 <td>23,330</td>
@@ -127,7 +130,7 @@ const Dashboard = () => {
                 <td style={{ color: 'green' }}>208.33%</td>
                 <td>$83.33</td>
                 <td>$25.72</td>
-              </tr>
+              </tr>}
             </tbody>
           </table>
         </div>
