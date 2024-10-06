@@ -4,6 +4,7 @@ import logo from '../assets/Simmy Logo.png'; // Adjust the path as needed
 import { useSelector } from 'react-redux';
 import NavbarComponent from './Navbar';
 import Navbar from 'react-bootstrap/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -11,6 +12,7 @@ import Navbar from 'react-bootstrap/Navbar';
 const Dashboard = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const user = useSelector((state) => state.user); // Access the global user data
+  const navigate = useNavigate();
 
   // Toggle dropdown visibility
   const toggleDropdown = () => {
@@ -77,6 +79,7 @@ const Dashboard = () => {
           <button className="tab active">Campaigns</button>
           <button className="tab">Ad Sets</button>
           <button className="tab">Ads</button>
+          <button className='btn btn-primary' style={{ position: 'absolute', right: '5%' }}onClick={() => navigate('/CampaignManager')}>Create Campaign</button>
         </div>
 
         {/* Table */}

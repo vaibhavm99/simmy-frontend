@@ -16,6 +16,9 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'; // Import PersistGate
 import store, { persistor } from './components/store'; // Import your store and persistor
 import Logout from './components/Logout';
+import CampaignManager from './components/CampaignManager';
+import AdSetManager from './components/AdSetManager';
+import AdManager from './components/AdManager';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -37,6 +40,9 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path='/users' element={< Options />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/CampaignManager" element={< CampaignManager />} />
+            <Route path="/AdSetManager" element={< AdSetManager />} />
+            <Route path="/adManager" element={< AdManager />} />
           </Routes>
         </main>
         <div style={{padding: "2%"}}/>
