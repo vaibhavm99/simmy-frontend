@@ -45,7 +45,7 @@ const App = () => {
             <Route path="/adManager" element={< AdManager />} />
           </Routes>
         </main>
-        <div style={{padding: "2%"}}/>
+        <div style={{padding: "5%"}}/>
         <Footer />
       </div>
     </Router>
