@@ -1,11 +1,12 @@
 import './SimulatorProfilesNew.css';
 import NavbarComponent from './Navbar';
 import { useContext, useEffect, useState } from 'react';
-import { FormContext } from './FormContext';
+import { FormContext, ProfileUpdated } from './FormContext';
 import { useNavigate } from 'react-router-dom';
 const SimulatorProfilesNew = () => {
     // State to handle form data
     const {formData, setFormData} = useContext(FormContext);
+    const {updated, setUpdated} = useContext(ProfileUpdated);
     const navigate = useNavigate();
     //if formdat.storename is not '' redirecto to '/simulator-profiles-new' on mount
     useEffect(() => {
@@ -23,6 +24,9 @@ const SimulatorProfilesNew = () => {
             ...formData,
             [e.target.name]: e.target.value
         });
+       if(!updated) {
+          setUpdated(true);
+       }
     };
 
     // Handle form submission

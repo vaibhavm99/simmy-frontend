@@ -11,8 +11,9 @@ import Col from "react-bootstrap/Col";
 import Card from 'react-bootstrap/Card';
 import Button from "react-bootstrap/Button";
 import { useContext } from "react";
-import { FormContext } from './FormContext';
+import { AudienceContext, FormContext } from './FormContext';
 import axios from "axios";
+import { Badge } from "react-bootstrap";
 
 export default function Simulation () {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -26,6 +27,7 @@ export default function Simulation () {
   const user = {name: "Manish"};
 
   const {formData, setFormData} = useContext(FormContext);
+  const {a1data, setA1data} = useContext(AudienceContext);
   console.log(formData);
   // Toggle dropdown visibility
   const toggleDropdown = () => {
@@ -44,12 +46,6 @@ export default function Simulation () {
     );
   }
 
-  var vals = [["Jan",100], ["Feb",200], ["Mar",100], ["Apr", 150]];
-  var min_val = Math.min(...vals.map((x) => x[1]));
-  var max_val = Math.max(...vals.map((x) => x[1]));
-
-  var buffer = 0.1*(max_val-min_val);
-
   const processInput = () => {
     setIsLoading(true);
     axios.post("https://forecastapi-226173475182.us-central1.run.app/forecast", {
@@ -67,7 +63,7 @@ export default function Simulation () {
     .then((resp) => {
       //console.log(resp.data);
       var preds = resp.data.preds;
-      var values = [...Array(25)].map((_, x) => (Number(preds[x*15][0]) + Number(preds[x*15][1])) / 2);
+      var values = [...Array(25)].map((_, i) => [Number(preds[i*15][0]), Number(preds[i*15][1])]);
       //console.log(values);
       setPredictions(values)
       setDisplayChart(true);
@@ -119,19 +115,26 @@ export default function Simulation () {
           <Card.Body>
             <Card.Title>Audience A1</Card.Title>
             <Card.Text>
-              An Audience based purely on the items you sell.
+                {(a1data.length > 0) && 
+                  <div className="rectangle-container">
+                    <p>Age range: {a1data[0]}</p>
+                    <p>Demographic: {a1data[1]}</p>
+                    <div>Tags: {a1data[2].map((x, _) => <Badge>{x}</Badge>)} </div>
+                  </div>
+                }
             </Card.Text>
             <Button variant="primary" disabled={isLoading} onClick={() => processInput()}>{isLoading ? "Simulating..." : "Simulate!"}</Button>
           </Card.Body>
         </Card>
     </Col>
     <Col>
+    <Row>
     { displayChart && <div className="Simulation">
         <LineChart
           xAxis={[{ data: ["Jan 1", "Jan 15", "Feb 1", "Feb 15", "Mar 1", "Mar 15", "Apr 1", "Apr 15", "May 1", "May 15", "June 1", "June 15", "July 1", "July 15", "Aug 1", "Aug 15", "Sep 1", "Sep 15", "Oct 1", "Oct 15", "Nov 1", "Nov 15", "Dec 1", "Dec 15", "Dec 31"], scaleType: "point", label: "Month" }]}
           series={[
             {
-              data: predictions, label: "Reach (millions)"
+              data: predictions.map((x, _) => x[0]), label: "Reach (millions)"
             },
           ]}
           width={800}
@@ -139,7 +142,23 @@ export default function Simulation () {
         />
       </div>
     }
-    </Col>
+    </Row>
+    <Row>
+    { displayChart && <div className="Simulation">
+        <LineChart
+          xAxis={[{ data: ["Jan 1", "Jan 15", "Feb 1", "Feb 15", "Mar 1", "Mar 15", "Apr 1", "Apr 15", "May 1", "May 15", "June 1", "June 15", "July 1", "July 15", "Aug 1", "Aug 15", "Sep 1", "Sep 15", "Oct 1", "Oct 15", "Nov 1", "Nov 15", "Dec 1", "Dec 15", "Dec 31"], scaleType: "point", label: "Month" }]}
+          series={[
+            {
+              data: predictions.map((x, _) => x[1]), label: "Impressions (millions)"
+            },
+          ]}
+          width={800}
+          height={300}
+        />
+      </div>
+    }
+    </Row>
+</Col>
     </Row>
     </Container>
     </div>

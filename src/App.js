@@ -16,7 +16,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react'; // Import PersistGate
 import store, { persistor } from './components/store'; // Import your store and persistor
 import Logout from './components/Logout';
-import {FormContext} from './components/FormContext';
+import {FormContext, ProfileUpdated, AudienceContext} from './components/FormContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SimulatorProfilesNew from './components/SimulatorProfilesNew';
 import { useContext, useState } from 'react';
@@ -30,7 +30,9 @@ const App = () => {
     industry: '',
     description: '',
     items: ''
-});
+  });
+  const [updated, setUpdated] = useState(false);
+  const [a1data, setA1data] = useState([]);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -38,6 +40,8 @@ const App = () => {
       <div>
         <main>
         <FormContext.Provider value={{formData,setFormData}}>
+        <ProfileUpdated.Provider value={{updated,setUpdated}}>
+        <AudienceContext.Provider value={{a1data, setA1data}}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -53,6 +57,8 @@ const App = () => {
             <Route path="/simulator-profiles" element={<SimulatorProfiles/>} />
             <Route path="/simulation" element={<Simulation/>} />
           </Routes>
+          </AudienceContext.Provider>
+          </ProfileUpdated.Provider>
           </FormContext.Provider>
         </main>
         <div style={{padding: "2%"}}/>
