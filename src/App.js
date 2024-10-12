@@ -17,6 +17,9 @@ import { PersistGate } from 'redux-persist/integration/react'; // Import Persist
 import store, { persistor } from './components/store'; // Import your store and persistor
 import Logout from './components/Logout';
 import {FormContext, ProfileUpdated, AudienceContext} from './components/FormContext';
+import CampaignManager from './components/CampaignManager';
+import AdSetManager from './components/AdSetManager';
+import AdManager from './components/AdManager';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SimulatorProfilesNew from './components/SimulatorProfilesNew';
 import { useContext, useState } from 'react';
@@ -56,12 +59,15 @@ const App = () => {
             <Route path="/simulator-profiles-new" element={<SimulatorProfilesNew/>} />
             <Route path="/simulator-profiles" element={<SimulatorProfiles/>} />
             <Route path="/simulation" element={<Simulation/>} />
+            <Route path="/CampaignManager" element={< CampaignManager />} />
+            <Route path="/AdSetManager" element={< AdSetManager />} />
+            <Route path="/adManager" element={< AdManager />} />
           </Routes>
           </AudienceContext.Provider>
           </ProfileUpdated.Provider>
           </FormContext.Provider>
         </main>
-        <div style={{padding: "2%"}}/>
+        <div style={{padding: "5%"}}/>
         <Footer />
       </div>
     </Router>
