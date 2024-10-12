@@ -1,9 +1,12 @@
 import './SimulatorProfilesNew.css';
 import NavbarComponent from './Navbar';
 import { useContext, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import { FormContext, ProfileUpdated } from './FormContext';
 import { useNavigate } from 'react-router-dom';
 const SimulatorProfilesNew = () => {
+    const user = useSelector((state) => state.user); // Access the global user data
     // State to handle form data
     const {formData, setFormData} = useContext(FormContext);
     const {updated, setUpdated} = useContext(ProfileUpdated);
@@ -34,6 +37,17 @@ const SimulatorProfilesNew = () => {
         e.preventDefault();
         navigate('/simulator-profiles');
     };
+    if(user === null) {
+        return (
+          <>
+          <NavbarComponent />
+          <div>
+            <h1>Not logged in</h1>
+            <p>Please log in or sign up to view this page</p>
+          </div>
+          </>
+        );
+      }
 
     return (
         <>

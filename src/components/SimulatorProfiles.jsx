@@ -4,10 +4,14 @@ import './SimulatorProfiles.css';
 import { useContext, useEffect, useState } from 'react';
 import { AudienceContext, FormContext, ProfileUpdated } from './FormContext';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import axios from "axios";
 import { Badge } from 'react-bootstrap';
 
 const SimulatorProfiles = () => {
+  const user = useSelector((state) => state.user); // Access the global user data
+
+  
     const navigate = useNavigate();
     useEffect(() => {
         console.log(formData.storeName);
@@ -54,6 +58,17 @@ const SimulatorProfiles = () => {
 
     const redirectTo = (path) => {
       navigate(path);
+    }
+    if(user === null) {
+      return (
+        <>
+        <NavbarComponent />
+        <div>
+          <h1>Not logged in</h1>
+          <p>Please log in or sign up to view this page</p>
+        </div>
+        </>
+      );
     }
     
     return (

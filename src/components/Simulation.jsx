@@ -24,7 +24,7 @@ export default function Simulation () {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const user = {name: "Manish"};
+  const user = useSelector((state) => state.user); // Access the global user data
 
 
   const [simulationText, setSimulationText] = useState("Processing your audience...")
@@ -78,6 +78,18 @@ export default function Simulation () {
       console.log(err);
       setIsLoading(false);
     })
+  }
+
+  if(user === null) {
+    return (
+      <>
+      <NavbarComponent />
+      <div>
+        <h1>Not logged in</h1>
+        <p>Please log in or sign up to view this page</p>
+      </div>
+      </>
+    );
   }
 
   return (
