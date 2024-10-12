@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const NavbarComponent = () => {
    const user = useSelector((state) => state.user); // Access the global user data
     return ( 
-        <div class="header-banner py-4"  id='header'>
+        <div className="header-banner py-4"  id='header'>
           <div className="navbar" >
              <Navbar.Brand href="/">
                 <img
