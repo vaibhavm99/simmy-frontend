@@ -19,10 +19,13 @@ const SimulatorProfiles = () => {
     const {formData, setFormData} = useContext(FormContext);
     const {updated, setUpdated} = useContext(ProfileUpdated);
     const {a1data, setA1data} = useContext(AudienceContext);
+    const [simulationText, setSimulationText] = useState("Processing your profile...")
 
     console.log(formData, updated);
 
     if(updated) {
+      setTimeout(() => {setSimulationText("Going through your website...")}, 10000);
+      setTimeout(() => {setSimulationText("Creating an audience...")}, 30000);
       axios.post("https://newtag-226173475182.us-central1.run.app/process_input", {
         "name": formData["storeName"],
         "link": formData["webUrl"],
@@ -73,11 +76,11 @@ const SimulatorProfiles = () => {
                   <div className="rectangle-container">
                     <p>Age range: {a1data[0]}</p>
                     <p>Demographic: {a1data[1]}</p>
-                    <div>Tags: {a1data[2].map((x, _) => <Badge>{x}</Badge>)} </div>
+                    <div>Tags: {a1data[2].slice(0, 10).map((x, _) => <Badge>{x}</Badge>)} </div>
                   </div>
                 }
               <button className="action-button" onClick={() => redirectTo('/simulation')}>
-                  {updated ? "Creating an audience..." : ((a1data.length > 0) ? "Simulate audience!" : "Update your profile to get an audience!")}
+                  {updated ? simulationText : ((a1data.length > 0) ? "Simulate audience!" : "Update your profile to get an audience!")}
               </button>
             </div>
         </>

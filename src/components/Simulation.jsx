@@ -26,6 +26,9 @@ export default function Simulation () {
 
   const user = {name: "Manish"};
 
+
+  const [simulationText, setSimulationText] = useState("Processing your audience...")
+
   const {formData, setFormData} = useContext(FormContext);
   const {a1data, setA1data} = useContext(AudienceContext);
   console.log(formData);
@@ -48,6 +51,8 @@ export default function Simulation () {
 
   const processInput = () => {
     setIsLoading(true);
+    setTimeout(() => {setSimulationText("Running the AI model...")}, 10000);
+    setTimeout(() => {setSimulationText("Predicting your results...")}, 20000);
     axios.post("https://forecastapi-226173475182.us-central1.run.app/forecast", {
       "budget": 100,
       "min_age": 18,
@@ -111,7 +116,7 @@ export default function Simulation () {
 
       <Row>
         <Col>
-        <Card style={{ width: '30rem' }}>
+        <Card style={{ width: '35rem' }}>
           <Card.Body>
             <Card.Title>Audience A1</Card.Title>
             <Card.Text>
@@ -119,11 +124,11 @@ export default function Simulation () {
                   <div className="rectangle-container">
                     <p>Age range: {a1data[0]}</p>
                     <p>Demographic: {a1data[1]}</p>
-                    <div>Tags: {a1data[2].map((x, _) => <Badge>{x}</Badge>)} </div>
+                    <div>Tags: {a1data[2].slice(0,10).map((x, _) => <Badge>{x}</Badge>)} </div>
                   </div>
                 }
             </Card.Text>
-            <Button variant="primary" disabled={isLoading} onClick={() => processInput()}>{isLoading ? "Simulating..." : "Simulate!"}</Button>
+            <Button variant="primary" disabled={isLoading} onClick={() => processInput()}>{isLoading ? simulationText : "Simulate!"}</Button>
           </Card.Body>
         </Card>
     </Col>
@@ -132,6 +137,7 @@ export default function Simulation () {
     { displayChart && <div className="Simulation">
         <LineChart
           xAxis={[{ data: ["Jan 1", "Jan 15", "Feb 1", "Feb 15", "Mar 1", "Mar 15", "Apr 1", "Apr 15", "May 1", "May 15", "June 1", "June 15", "July 1", "July 15", "Aug 1", "Aug 15", "Sep 1", "Sep 15", "Oct 1", "Oct 15", "Nov 1", "Nov 15", "Dec 1", "Dec 15", "Dec 31"], scaleType: "point", label: "Month" }]}
+          leftAxis={null}
           series={[
             {
               data: predictions.map((x, _) => x[0]), label: "Reach (millions)"
@@ -147,6 +153,7 @@ export default function Simulation () {
     { displayChart && <div className="Simulation">
         <LineChart
           xAxis={[{ data: ["Jan 1", "Jan 15", "Feb 1", "Feb 15", "Mar 1", "Mar 15", "Apr 1", "Apr 15", "May 1", "May 15", "June 1", "June 15", "July 1", "July 15", "Aug 1", "Aug 15", "Sep 1", "Sep 15", "Oct 1", "Oct 15", "Nov 1", "Nov 15", "Dec 1", "Dec 15", "Dec 31"], scaleType: "point", label: "Month" }]}
+          leftAxis={null}
           series={[
             {
               data: predictions.map((x, _) => x[1]), label: "Impressions (millions)"
