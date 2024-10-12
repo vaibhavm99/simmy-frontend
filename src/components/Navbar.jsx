@@ -20,7 +20,7 @@ const NavbarComponent = () => {
                {/* Add Dashboard button if user isn't null */}
                {user && (
                  <Nav.Item>
-                   <Nav.Link href="/dashboard" style={{ paddingTop: '20px'}}>Dashboard</Nav.Link>
+                   <Nav.Link href="/users" style={{ paddingTop: '20px'}}>Dashboard</Nav.Link>
                   </Nav.Item>
                )}
 

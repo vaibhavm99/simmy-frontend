@@ -40,7 +40,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
     <Router>
-      <div>
+      <div style={{ backgroundColor: '#ebf5ff'}}>
         <main>
         <FormContext.Provider value={{formData,setFormData}}>
         <ProfileUpdated.Provider value={{updated,setUpdated}}>

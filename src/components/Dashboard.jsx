@@ -833,7 +833,7 @@ const Dashboard = () => {
             {user.name}
             </button>
             <div className="dropdown-menu">
-              <a href="/profile">Dashboard</a>
+              <a href="/users">Dashboard</a>
                 <a href="/settings">Settings</a>
                 <a href="/billing">Campaign History</a>
               <a href="/logout">Logout</a>
