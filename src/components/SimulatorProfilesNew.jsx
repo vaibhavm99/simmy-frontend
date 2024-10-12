@@ -42,8 +42,9 @@ const SimulatorProfilesNew = () => {
                 <h2>Welcome to Simmy Simulator !</h2>
                 <form className="simulator-form" onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="storeName">Store Name</label>
+                        <label className='mylabel' htmlFor="storeName">Store Name</label>
                         <input
+                            className='myinput'
                             type="text"
                             id="storeName"
                             placeholder="Your stores name"
@@ -55,8 +56,9 @@ const SimulatorProfilesNew = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="webUrl">Web URL</label>
+                        <label className='mylabel' htmlFor="webUrl">Web URL</label>
                         <input
+                            className='myinput'
                             type="text"
                             id="webUrl"
                             placeholder='Your stores website URL'
@@ -68,8 +70,9 @@ const SimulatorProfilesNew = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="industry">Industry</label>
+                        <label className='mylabel' htmlFor="industry">Industry</label>
                         <input
+                            className='myinput'
                             type="text"
                             id="industry"
                             name="industry"
@@ -81,8 +84,9 @@ const SimulatorProfilesNew = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="description">Description</label>
+                        <label className='mylabel' htmlFor="description">Description</label>
                         <textarea
+                            className='mytextarea'
                             id="description"
                             name="description"
                             placeholder='Describe your store'
@@ -93,8 +97,9 @@ const SimulatorProfilesNew = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="items">List a few items and Their Prices</label>
+                        <label className='mylabel' htmlFor="items">List a few items and Their Prices</label>
                         <textarea
+                            className='mytextarea'
                             id="items"
                             placeholder='e.g. Item1: $10, Item2: $20'
                             name="items"
@@ -104,7 +109,7 @@ const SimulatorProfilesNew = () => {
                         />
                     </div>
 
-                    <button type="submit">Submit</button>
+                    <button className='mybutton' type="submit">Submit</button>
                 </form>
             </div>
         </>
