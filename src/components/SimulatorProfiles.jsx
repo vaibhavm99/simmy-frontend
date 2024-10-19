@@ -20,12 +20,15 @@ const SimulatorProfiles = () => {
     const {updated, setUpdated} = useContext(ProfileUpdated);
     const {a1data, setA1data} = useContext(AudienceContext);
     const [simulationText, setSimulationText] = useState("Processing your profile...")
+    const [requested, setRequested] = useState(false);
 
     console.log(formData, updated);
 
     if(updated) {
       setTimeout(() => {setSimulationText("Going through your website...")}, 10000);
       setTimeout(() => {setSimulationText("Creating an audience...")}, 30000);
+      if(!requested){
+        setRequested(true);
       axios.post("https://newtag-226173475182.us-central1.run.app/process_input", {
         "name": formData["storeName"],
         "link": formData["webUrl"],
@@ -43,12 +46,15 @@ const SimulatorProfiles = () => {
         setA1data(preds.data);
         console.log(preds);
         setUpdated(false);
+        setRequested(false);
       })
       .catch((err) => {
         console.log(err);
         setA1data(["18-35", "female", ["tag1", "tag2"]]);
         setUpdated(false);
+        setRequested(false);
       })
+      }
 
     }
 
