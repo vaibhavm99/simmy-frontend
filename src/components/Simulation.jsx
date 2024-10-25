@@ -14,18 +14,26 @@ import { useContext } from "react";
 import { AudienceContext, FormContext } from './FormContext';
 import axios from "axios";
 import { Badge } from "react-bootstrap";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+
+
+const text_map = {
+  "Reach": "Reach text",
+  "Impressions": "Impressions text",
+  "Website Purchases": "Website Purchases text",
+  "Pick a metric!": "Our AI models are capable of predicting the trends for a number of ad performance indicators, such as Reach, Impressions and Website Purchases. First, Simulate your results from the 'Simulate' button on the left. When you're done, pick the metric you want to see from the dropdown above to get a predicted trend line!"
+}
 
 export default function Simulation () {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-
-  const [displayChart, setDisplayChart] = useState(false);
-
   const [predictions, setPredictions] = useState([]);
-
   const [isLoading, setIsLoading] = useState(false);
+  const [dropDownTitle, setDropDownTitle] = useState("Pick a metric!")
+  const [dropDownText, setDropDownText] = useState("Our AI models are capable of predicting the trends for a number of ad performance indicators, such as Reach, Impressions and Website Purchases. First, Simulate your results from the 'Simulate' button on the left. When you're done, pick the metric you want to see from the dropdown above to get a predicted trend line!"
+)
 
   const user = {name: "Manish"};
-
 
   const [simulationText, setSimulationText] = useState("Processing your audience...")
 
@@ -51,8 +59,10 @@ export default function Simulation () {
 
   const processInput = () => {
     setIsLoading(true);
+    setPredictions([]);
     setTimeout(() => {setSimulationText("Running the AI model...")}, 10000);
     setTimeout(() => {setSimulationText("Predicting your results...")}, 20000);
+    if(!isLoading){
     axios.post("https://forecastapi-226173475182.us-central1.run.app/forecast", {
       "budget": 100,
       "min_age": 18,
@@ -71,13 +81,20 @@ export default function Simulation () {
       var values = [...Array(25)].map((_, i) => [Number(preds[i*15][0]), Number(preds[i*15][1])]);
       //console.log(values);
       setPredictions(values)
-      setDisplayChart(true);
       setIsLoading(false);
+      setDropDownTitle("Reach");
+      setDropDownText(text_map["Reach"]);
     })
     .catch((err) => {
       console.log(err);
       setIsLoading(false);
     })
+    }
+  }
+
+  const handleSelect = (evt) => {
+    setDropDownTitle(evt);
+    setDropDownText(text_map[evt]);
   }
 
   return (
@@ -134,36 +151,36 @@ export default function Simulation () {
     </Col>
     <Col>
     <Row>
-    { displayChart && <div className="Simulation">
+    <div className="Simulation">
         <LineChart
           xAxis={[{ data: ["Jan 1", "Jan 15", "Feb 1", "Feb 15", "Mar 1", "Mar 15", "Apr 1", "Apr 15", "May 1", "May 15", "June 1", "June 15", "July 1", "July 15", "Aug 1", "Aug 15", "Sep 1", "Sep 15", "Oct 1", "Oct 15", "Nov 1", "Nov 15", "Dec 1", "Dec 15", "Dec 31"], scaleType: "point", label: "Month" }]}
           leftAxis={null}
-          series={[
+          series={predictions.length > 0 ? [
             {
               data: predictions.map((x, _) => x[0]), label: "Reach (millions)"
             },
-          ]}
+          ] : []}
           width={800}
           height={300}
         />
       </div>
-    }
     </Row>
     <Row>
-    { displayChart && <div className="Simulation">
-        <LineChart
-          xAxis={[{ data: ["Jan 1", "Jan 15", "Feb 1", "Feb 15", "Mar 1", "Mar 15", "Apr 1", "Apr 15", "May 1", "May 15", "June 1", "June 15", "July 1", "July 15", "Aug 1", "Aug 15", "Sep 1", "Sep 15", "Oct 1", "Oct 15", "Nov 1", "Nov 15", "Dec 1", "Dec 15", "Dec 31"], scaleType: "point", label: "Month" }]}
-          leftAxis={null}
-          series={[
-            {
-              data: predictions.map((x, _) => x[1]), label: "Impressions (millions)"
-            },
-          ]}
-          width={800}
-          height={300}
-        />
-      </div>
-    }
+        <Card style={{ width: '35rem' }}>
+          <Card.Body>
+            <Card.Title>
+              Interpreting results
+              <DropdownButton id="dropdown-basic-button" title={dropDownTitle} onSelect={(evt) => handleSelect(evt)}>
+              <Dropdown.Item eventKey="Reach" disabled={predictions.length == 0}>Reach</Dropdown.Item>
+              <Dropdown.Item eventKey="Impressions" disabled={predictions.length == 0}>Impressions</Dropdown.Item>
+              <Dropdown.Item eventKey="Website Purchases" disabled={predictions.length == 0}>Website Purchases</Dropdown.Item>
+            </DropdownButton>
+            </Card.Title>
+            <Card.Text>
+              {dropDownText}
+            </Card.Text>
+          </Card.Body>
+        </Card>
     </Row>
 </Col>
     </Row>
