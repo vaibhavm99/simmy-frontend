@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const NavbarComponent = () => {
    const user = useSelector((state) => state.user); // Access the global user data
     return ( 
-        <div class="header-banner py-4"  id='header'>
+        <div className="header-banner py-4"  id='header'>
           <div className="navbar" >
              <Navbar.Brand href="/">
                 <img
@@ -20,7 +20,7 @@ const NavbarComponent = () => {
                {/* Add Dashboard button if user isn't null */}
                {user && (
                  <Nav.Item>
-                   <Nav.Link href="/dashboard" style={{ paddingTop: '20px'}}>Dashboard</Nav.Link>
+                   <Nav.Link href="/users" style={{ paddingTop: '20px'}}>Dashboard</Nav.Link>
                   </Nav.Item>
                )}
 

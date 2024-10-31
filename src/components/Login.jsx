@@ -21,14 +21,22 @@ const Login = () => {
     let port = process.env.BACKEND_PORT;
     let credentials = { username: email, password: password };
     try {
-      const response = await fetch(`http://localhost:${8080}/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: email, password: password })
-      });
-      const data = await response.json();
+      // const response = await fetch(`http://localhost:${8080}/login`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ username: email, password: password })
+      // });
+      
+      const data = {
+        "username": {email},
+        "password": {password},
+        "name": "Admin",
+        "q1": "Owner",
+        "q2": "10+",
+        "q3": "Other"
+    };
       setUsers(data);
       setReceived(true);
 
@@ -42,7 +50,7 @@ const Login = () => {
       console.log(data);
 
 
-      if (data.username != "-1") {
+      if (data.username.email == "admin@simmy.com" && data.password.password == "admin") {
         console.log(`Login successful for user: ${data.username}`);
         // Example navigation after login
         navigate('/users');
