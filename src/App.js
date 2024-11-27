@@ -25,6 +25,16 @@ import SimulatorProfilesNew from './components/SimulatorProfilesNew';
 import { useContext, useState } from 'react';
 import SimulatorProfiles from './components/SimulatorProfiles';
 import Simulation from './components/Simulation';
+import Careers from './components/Careers';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsAndConditions from './components/TnC';
+import Features from './components/Features';
+import Pricing from './components/Pricing';
+import Support from './components/Support';
+import Customers from './components/Customers';
+import Blog from './components/Blog';
+import Whitepaper from './components/Whitepaper';
+import MediaCoverage from './components/MediaConverage';
 
 const App = () => {
   const [formData, setFormData] = useState({
@@ -40,6 +50,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
     <Router>
+      
       <div style={{ backgroundColor: '#ebf5ff'}}>
         <main>
         <FormContext.Provider value={{formData,setFormData}}>
@@ -62,6 +73,16 @@ const App = () => {
             <Route path="/CampaignManager" element={< CampaignManager />} />
             <Route path="/AdSetManager" element={< AdSetManager />} />
             <Route path="/adManager" element={< AdManager />} />
+            <Route path="/careers" element={< Careers />} />
+            <Route path="/privacy-policy" element={< PrivacyPolicy />} />
+            <Route path="/tnc" element={< TermsAndConditions />} />
+            <Route path="/features" element={< Features />} />
+            <Route path="/pricing" element={< Pricing />} />
+            <Route path="/support" element={< Support />} />
+            <Route path="/customers" element={< Customers />} />
+            <Route path="/blog" element={< Blog />} />
+            <Route path="/whitepaper" element={< Whitepaper />} />
+            <Route path="/media-coverage" element={< MediaCoverage />} />
           </Routes>
           </AudienceContext.Provider>
           </ProfileUpdated.Provider>

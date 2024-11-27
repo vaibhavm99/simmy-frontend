@@ -18,27 +18,27 @@ const Footer = () => {
     <div class="footer-section">
         <h3>About Us</h3>
         <ul>
-            <li><a href="#">Company</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms & Condition</a></li>
+            <li><a href="/contact">Company</a></li>
+            <li><a href="/careers">Careers</a></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+            <li><a href="/tnc">Terms & Conditions</a></li>
         </ul>
     </div>
     <div class="footer-section">
         <h3>Product</h3>
         <ul>
-            <li><a href="#">Features</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Support</a></li>
+            <li><a href="/features">Features</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/support">Support</a></li>
         </ul>
     </div>
     <div class="footer-section">
         <h3>Resources</h3>
         <ul>
-            <li><a href="#">Customers</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Whitepaper</a></li>
-            <li><a href="#">Media Coverage</a></li>
+            <li><a href="/customers">Customers</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/whitepaper">Whitepaper</a></li>
+            <li><a href="/media-coverage">Media Coverage</a></li>
         </ul>
     </div>
     <div class="footer-section">
